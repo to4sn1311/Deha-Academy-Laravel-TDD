@@ -17,7 +17,7 @@ class TaskController extends Controller
 
     public function index()
     {
-        $tasks = Task::all();
+        $tasks = Task::paginate(30);
         return view('tasks.index', compact('tasks'));
     }
 
@@ -30,6 +30,12 @@ class TaskController extends Controller
     public function create()
     {
         return view('tasks.create');
+    }
+
+    public function destroy(Task $task)
+    {
+        $task->delete();
+        return redirect()->route('tasks.index');
     }
 
 }
